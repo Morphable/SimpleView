@@ -45,7 +45,7 @@ class View
      */
     public function include(string $path = null)
     {
-        $_fullPath = $this->base . '/' . Util::trimSlash($path);
+        $_fullPath = $this->base . Util::trimSlash($path);
 
         if (!file_exists($_fullPath)) {
             throw new ViewNotFound($path);
