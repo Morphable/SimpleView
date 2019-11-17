@@ -7,6 +7,11 @@ use \Morphable\SimpleView\Exception\ViewNotFound;
 
 class SimpleViewTest extends \PHPUnit\Framework\TestCase
 {
+    public function isWindows()
+    {
+        return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+    }
+
     public function testSimpleView()
     {
         $instance = new SimpleView(__DIR__ . '/views');
@@ -16,6 +21,10 @@ class SimpleViewTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $shouldBe = "hello worldtest\ntest\n";
+        if ($this->isWindows()) {
+            $shouldBe = "hello worldtest\r\ntest\r\n";
+        }
+
         $this->assertSame($shouldBe, $result);
 
         try {
